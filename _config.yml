@@ -1,11 +1,11 @@
 # Site settings
 author: Johannes Hupfeld
-title: 
+title: Why I Choose Software Engineering 
 header-img: img/home-bg.png
 email: j.hupfeld@gmail.com
 copyright_name: Johannes Hupfeld
 description: > # this means to ignore newlines until "baseurl:"
-  
+  Reasons why I decided to get in the field of software engineering 
 baseurl: "" # the subpath of your site, e.g. /blog
 twitter_username: 
 github_username:  JohannesHupfeld
