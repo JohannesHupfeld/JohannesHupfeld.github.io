@@ -16,6 +16,7 @@ Instead of creating the entire file structure from scratch I decided to use [Cor
 The next step was to create a new repository on GitHub and follow the instructions to push an existing repository from the command line. Before copying and pasting the instructions from GitHub first run these commands in order git init, git add . , and git commit -m “message”.
 
 ![Imgur](https://i.imgur.com/vATQhjO.png)
+
 ![Imgur](https://i.imgur.com/BXJ3i3D.png)
 
 The first aspect I focused on was the models and database, followed by views and then controllers. In many instances I was working between the controllers, views, and models simultaneously but in terms of creation of the files I did so in the order previously mentioned. 
@@ -26,7 +27,9 @@ I created two models, first was the user model and the second was the recipe mod
 
 The first thing I did was create migrations which builds the database and the structure of the database based on the models. I did so by running rake db:create_migration NAME=create_users_table in my terminal. This created the migration and then I just needed to fill it in with the columns in the table. Those columns are name, email, and password_digest.
 
-![Imgur](https://i.imgur.com/llkYbtF.png) ![Imgur](https://i.imgur.com/bHdoZ3q.png)
+![Imgur](https://i.imgur.com/llkYbtF.png)
+
+![Imgur](https://i.imgur.com/bHdoZ3q.png)
 
 I used password_digest instead of just password ignorer to encrypt the password through bcrypt which lives in the gemfile.
 
@@ -36,7 +39,9 @@ I repeated the same process for the recipes table but with different attributes;
 
 Next I needed to fill in models. The first thing I did was to add has_secured_password to my users model which allows us to use an ActiveRecord method called authenticate. Next was to create the relationships between each model, so the user has many recipes while a recipe belongs to a user.
 
-![Imgur](https://i.imgur.com/Hn11JnK.png) ![Imgur](https://i.imgur.com/DQxXWge.png)
+![Imgur](https://i.imgur.com/Hn11JnK.png) 
+
+![Imgur](https://i.imgur.com/DQxXWge.png)
 
 Once all this is completed it is important to run rake db:migrate to actually create the database and to create the schema. 
 
@@ -44,7 +49,9 @@ Once all this is completed it is important to run rake db:migrate to actually cr
 
 The application controller is the first controller I worked on. In this controller I first enabled sessions and set session_secret in the configure block. I then created a users controller to start creating signup and login routes which render to the corresponding erb files in the views folder.
 
-![Imgur](https://i.imgur.com/7my112W.png) ![Imgur](https://i.imgur.com/vpaSrVk.png)
+![Imgur](https://i.imgur.com/7my112W.png)
+
+![Imgur](https://i.imgur.com/vpaSrVk.png)
 
 As you can see I stated that if the fields of name, email and password are not blank to give the user an id and to redirect the user to users show page and if the name, email and password fields are left blank to simply redirect to the same page—signup. The same MVC methodology follows the rest of my code such as login, logout for users and create, read, update, and delete (CRUD) for my recipes. 
 
