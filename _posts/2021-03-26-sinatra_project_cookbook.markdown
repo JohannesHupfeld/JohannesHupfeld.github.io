@@ -5,7 +5,7 @@ date:       2021-03-26 15:22:22 -0400
 permalink:  sinatra_project_cookbook
 ---
 
-I decided that for my Sinatra MVC/CRUD project I would create an app to store and share recipes. I consider myself to be an avid cook so I’m always either creating new recipes or looking up something interesting to make. Noting down my recipes in a sticky notes or keeping a note book isn’t always ideal so my other option was to note it down in my notes app on my iPhone. This prevented me from loosing or spilling on my perishable paper notes but it didn’t help with organization. Another aspect I wanted to implement was being able to see what other people are coming up with. Of course I could go on line and simply search up different recipes but my problem with that was you are always left with having to read an essay in order to find the recipe hidden within. I wanted to create an app to store all your recipes digitally and to also be able to see other peoples recipes without out any story attached to them and that is what the CookBook app is. This app is the first of its kind that I’ve created and therefore is rather basic but holds the potential to become so much more. Perhaps in the future I would like to add a “Show Me What I Can Make” feature in which a user can list items they have lying around the house and the app will generate what can be made with those ingredients by scraping the database of recipes created on the app.
+I decided that for my Sinatra MVC/CRUD project I would create an app to store and share recipes. I consider myself to be an avid cook so I’m always either creating new recipes or looking up something interesting to make. Noting down my recipes in sticky notes or keeping a note book isn’t always ideal so my other option was to note it down in my notes app on my iPhone. This prevented me from loosing or spilling on my perishable paper notes but it didn’t help with organization. Another aspect I wanted to implement was being able to see what other people are coming up with. Of course I could go on line and simply search up different recipes but my problem with that was you are always left with having to read an essay in order to find the recipe hidden within. I wanted to create an app to store all your recipes digitally and to also be able to see other peoples recipes without out any story attached to them and that is what the CookBook app is. This app is the first of its kind that I’ve created and therefore is rather basic but holds the potential to become so much more. Perhaps in the future I would like to add a “Show Me What I Can Make” feature in which a user can list items they have lying around the house and the app will generate what can be made with those ingredients by scraping the database of recipes created on the app.
 
 ### Project Setup 
 
@@ -31,13 +31,13 @@ The first thing I did was create migrations which builds the database and the st
 
 ![Imgur](https://i.imgur.com/bHdoZ3q.png)
 
-I used password_digest instead of just password ignorer to encrypt the password through bcrypt which lives in the gemfile.
+I used password_digest instead of just password inorder to encrypt the password through bcrypt which lives in the gemfile.
 
 Side Note : running rake -T will show you all the commands available through rake and they all come from ‘sinatra/activerecord/rake’ located in our rakefile.
 
 I repeated the same process for the recipes table but with different attributes; name, ingredients, instructions, and user_id.
 
-Next I needed to fill in models. The first thing I did was to add has_secured_password to my users model which allows us to use an ActiveRecord method called authenticate. Next was to create the relationships between each model, so the user has many recipes while a recipe belongs to a user.
+Next I needed to fill in the models. The first thing I did was to add has_secured_password to my users model which allows us to use an ActiveRecord method called authenticate. Next was to create the relationships between each model, so the user has many recipes while a recipe belongs to a user.
 
 ![Imgur](https://i.imgur.com/Hn11JnK.png) 
 
@@ -53,9 +53,11 @@ The application controller is the first controller I worked on. In this controll
 
 ![Imgur](https://i.imgur.com/vpaSrVk.png)
 
-As you can see I stated that if the fields of name, email and password are not blank to give the user an id and to redirect the user to users show page and if the name, email and password fields are left blank to simply redirect to the same page—signup. The same MVC methodology follows the rest of my code such as login, logout for users and create, read, update, and delete (CRUD) for my recipes. 
+As you can see I stated that if the fields of name is not blank to give the user an id and to redirect the user to users show page and if the name, email and password fields are left blank to simply redirect to the same page—signup. The same MVC methodology follows the rest of my code such as login, logout for users and create, read, update, and delete (CRUD) for my recipes. 
 
 I ran into an interesting issue when creating the edit and delete routes of the recipe controllers. For some reason when I would create the route, for example get ‘/recipes/:id/edit’ and same for delete ‘/recipes/:id’ I would keep getting the infamous “Sinatra doesn’t know this ditty”. I tried everything until I realized what Sinatra was telling me to do. In both cases it wanted my to add another “recipe” route to the entire chain so instead of get ‘/recipes/:id/edit’ it wanted get ‘recipes/recipes/:id/edit’. Once I made this change everything starting working but I’m still somewhat confused by this and my only guess is that I am already in the recipe when trying to edit or delete it needs to render a new recipe page in order to do so?
+
+EDIT - I resolved the issue of the double recipe route problem by adding a forward slash in front of recipe in the form action in the views/recipes/edit.erb file. I did the same with delete in my views/recipes/show.erb file.
 
 ### Nav Bar
 
